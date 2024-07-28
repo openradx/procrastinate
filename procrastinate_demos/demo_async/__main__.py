@@ -19,6 +19,7 @@ async def main():
         print("Enter the following to defer a task:")
         print(""" - 'sum {"a": 1, "b": 2}' for a task that sums two numbers""")
         print(" - 'defer' for a task that defers another task")
+        print(" - 'count' for a task that prints a counter and sleeps")
         print("Enter an empty line to quit")
         print()
         while True:
@@ -26,7 +27,9 @@ async def main():
             if not response:
                 break
             command, *args = (response).split(maxsplit=1)
-            task = {"sum": tasks.sum, "defer": tasks.defer}.get(command)
+            task = {"sum": tasks.sum, "defer": tasks.defer, "count": tasks.count}.get(
+                command
+            )
             kwargs = json.loads("".join(args) or "{}")
             if not task:
                 print("Invalid command")
